@@ -1,0 +1,66 @@
+FORMAT: 1A
+
+# Spotters
+
+# Group Missions 
+Missions
+
+## Missions Collection [/missions{?location}]
+### List 40 closest Missions [GET]
++ Parameters
+    + location (required, array, `40.714728,-73.998672`) ... Location whre to look for missions
+    
++ Response 200 (application/json)
+
+        [
+            {
+              "id": 1, 
+              "title": "Nice and easy", 
+              "company": "Tesco",
+              "address": {
+                "coordinates": [40.714728, -73.998672],
+                "distance": "0.2km"
+              } 
+              "dueDate": "30-12-2014 22:10", 
+              "price": 5,
+            },
+            {
+              "id": 2, 
+              "title": "Nice and easy", 
+              "company": "Tesco",
+              "address": {
+                "coordinates": [40.714728, -74.998672],
+                "distance": "10.2km"
+              } 
+              "dueDate": "31-12-2014 12:10", 
+              "price": 10,
+            }
+        ]
+
+## Mission [/missions/{id}]
+A single Mission object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+
+### Retrieve a Mission [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+             {
+              "id": 1, 
+              "title": "Nice and easy", 
+              "company": "Tesco",
+              "address": {
+                "coordinates": [40.714728, -73.998672],
+                "distance": "0.2km"
+              } 
+              "dueDate": "30-12-2014 22:10", 
+              "price": 5,
+            }
+
