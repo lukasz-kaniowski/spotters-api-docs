@@ -37,7 +37,7 @@ Missions
             }
         ]
 
-## Mission [/missions/{id}]
+## Mission Details [/missions/{id}]
 A single Mission object with all its details
 
 + Parameters
@@ -71,4 +71,56 @@ A single Mission object with all its details
                   ],
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
+            
+## Accept Mission [/missions/{id}/accept]
 
+### Accept a mission [PUT]
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                  "id": 1,
+                  "title": "Nice and easy",
+                  "company": "Tesco",
+                  "address": {
+                    "coordinates": [40.714728, -73.998672],
+                    "distance": "0.2km"
+                  },
+                  "dueDate": "2015-01-22T15:20:38",
+                  "price": 5,
+                  "tasks": [
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "photo", "count": 1, "icon": "ion-help-circled"}
+                  ],
+                  "instructions": "<p>Some <b>html</b> descipiton</p>"
+            }
+            
+### Decline a mission [DELETE]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                  "id": 1,
+                  "title": "Nice and easy",
+                  "company": "Tesco",
+                  "address": {
+                    "coordinates": [40.714728, -73.998672],
+                    "distance": "0.2km"
+                  },
+                  "dueDate": "2015-01-22T15:20:38",
+                  "price": 5,
+                  "tasks": [
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "question", "count": 5, "icon": "ion-alert"},
+                    {"type": "photo", "count": 1, "icon": "ion-help-circled"}
+                  ],
+                  "instructions": "<p>Some <b>html</b> descipiton</p>"
+            }
