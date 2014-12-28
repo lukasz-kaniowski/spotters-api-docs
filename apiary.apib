@@ -75,7 +75,13 @@ A single Mission object with all its details
             
 ## Accept Mission [/missions/{id}/accept]
 
+Mission will be assign/declined for the user who is executing the action. 
+
 ### Accept a mission [PUT]
+
+* Only mission in `status='open'` can be accepted. 
+* `bookingDueTime` is calculated and set for the mission
+
 + Response 200 (application/json)
 
     + Body
@@ -103,6 +109,8 @@ A single Mission object with all its details
             }
             
 ### Decline a mission [DELETE]
+
+* Only mission in status='booked' can be declined.
 
 + Response 200 (application/json)
 
