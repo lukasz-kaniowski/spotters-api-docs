@@ -19,7 +19,7 @@ Missions
               "company": "Tesco",
               "address": {
                 "coordinates": [40.714728, -73.998672],
-                "distance": "0.2km"
+                "distance": 0.2
               }, 
               "dueDate": "30-12-2014 22:10", 
               "price": 5
@@ -30,7 +30,7 @@ Missions
               "company": "Tesco",
               "address": {
                 "coordinates": [40.714728, -74.998672],
-                "distance": "10.2km"
+                "distance": 10.2
               }, 
               "dueDate": "31-12-2014 12:10", 
               "price": 10
@@ -41,7 +41,7 @@ Missions
 A single Mission object with all its details
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + id (required, number, `1`) ... Numeric `id` of the Mission to perform action with.
 
 ### Retrieve a Mission [GET]
 + Response 200 (application/json)
@@ -58,7 +58,7 @@ A single Mission object with all its details
                   "company": "Tesco",
                   "address": {
                     "coordinates": [40.714728, -73.998672],
-                    "distance": "0.2km"
+                    "distance": 0.2
                   },
                   "status": "open",
                   "dueDate": "2015-01-22T15:20:38",
@@ -72,6 +72,44 @@ A single Mission object with all its details
                   ],
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
+            
+## Mission Tasks [/missions/{id}/tasks]
+
+Tasks related to the mission. 
+Mission can have multiple different type of tasks.
+* yes/no question
+* take and upload picture
+* select 
+* free text question
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Mission to perform action with.
+
+### Retrieve a Mission Tasks [GET]
+
++ Response 200 (application/json)
+    + Body
+    
+            [
+                {
+                    "type": "yes-no",
+                    "id": "packaging",
+                    "label": "Do you like packaging?"
+                },
+                {
+                    "type": "photo",
+                    "id": "pic1",
+                    "label": "Take a photo of the product"
+                },
+                {
+                    "type": "text",
+                    "id": "text1",
+                    "label": "What products stands next to it?"
+                }
+                
+            ]
+
+
             
 ## Accept Mission [/missions/{id}/accept]
 
@@ -92,7 +130,7 @@ Mission will be assign/declined for the user who is executing the action.
                   "company": "Tesco",
                   "address": {
                     "coordinates": [40.714728, -73.998672],
-                    "distance": "0.2km"
+                    "distance": 0.2
                   },
                   "dueDate": "2015-01-22T15:20:38",
                   "bookingDueTime": "2015-01-10T15:20:38",
@@ -122,7 +160,7 @@ Mission will be assign/declined for the user who is executing the action.
                   "company": "Tesco",
                   "address": {
                     "coordinates": [40.714728, -73.998672],
-                    "distance": "0.2km"
+                    "distance": 0.2
                   },
                   "dueDate": "2015-01-22T15:20:38",
                   "bookingDueTime": "",
