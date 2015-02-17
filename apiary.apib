@@ -5,10 +5,11 @@ FORMAT: 1A
 # Group Missions 
 Missions
 
-## Missions Collection [/missions{?location}]
+## Missions Collection [/missions/locations{?location,state}]
 ### List 40 closest Missions [GET]
 + Parameters
     + location (required, array, `40.714728,-73.998672`) ... Location whre to look for missions
+    + state (required, string, `active`) ... State of the mission, possible `active`
     
 + Response 200 (application/json)
 
@@ -37,7 +38,7 @@ Missions
             }
         ]
 
-## Mission Details [/missions/{id}]
+## Mission Details [/missions/locations/{id}]
 A single Mission object with all its details
 
 + Parameters
@@ -111,13 +112,13 @@ Mission can have multiple different type of tasks.
 
 
             
-## Accept Mission [/missions/{id}/accept]
+## Accept Mission [/missions/locations/{id}/accept]
 
 Mission will be assign/declined for the user who is executing the action. 
 
 ### Accept a mission [PUT]
 
-* Only mission in `status='open'` can be accepted. 
+* Only mission in `state='active'` can be accepted. 
 * `bookingDueTime` is calculated and set for the mission
 
 + Response 200 (application/json)
@@ -148,7 +149,7 @@ Mission will be assign/declined for the user who is executing the action.
             
 ### Decline a mission [DELETE]
 
-* Only mission in status='booked' can be declined.
+* Only mission in state='booked' can be declined.
 
 + Response 200 (application/json)
 
@@ -175,3 +176,6 @@ Mission will be assign/declined for the user who is executing the action.
                   ],
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
+
+
+
