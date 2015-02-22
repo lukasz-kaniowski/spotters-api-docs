@@ -1,16 +1,48 @@
 FORMAT: 1A
 HOST: https://ukache-spotters-web.herokuapp.com/api
 
-# Spotters
+# Spotters Api
 
-# Group Missions 
-Missions
+# Accessing missions from the mobile app
+
+User of the mobile app is able to access and manage missions. 
+
+## Authentication [/auth/local]
+
+All api endpoints requires user to pass `jwt-token`. In order to obtain it, user will have to log in first. 
+
+### Log in [POST]
+
+In order to obtain `token` user will have to pass `email` and `password`. 
+
++ Request (application/json)
+
+        {
+            "email": "test@test.com",
+            "password": "password"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "token": "someToken"
+        }
+
+
 
 ## Missions Collection [/missions/locations{?location,state}]
 ### List 40 closest Missions [GET]
+
 + Parameters
-    + location (required, array, `40.714728,-73.998672`) ... Location whre to look for missions
+    + location (required, array, `40.714728,-73.998672`) ... Location where to look for missions
     + state (required, string, `active`) ... State of the mission, possible `active`
+
++ Request (application/json)
+  
+    + Headers
+
+            authorization: Bearer <JWT-Token>
+
     
 + Response 200 (application/json)
 
