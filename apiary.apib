@@ -1,18 +1,26 @@
 FORMAT: 1A
 HOST: https://ukache-spotters-web.herokuapp.com/api
 
-# Spotters Api
+# Spotters API
+*Spotters API* is used by mobile applications.
 
-# Accessing missions from the mobile app
+## Authentication
+*Spotters API* uses jwt token autorization. 
 
-User of the mobile app is able to access and manage missions. 
+## Media Types
+Responses body are plain JSON objects. 
+
+Requests with a message-body are using plain JSON to set or update resource states.
+
+## Error States
+The common [HTTP Response Status Codes](https://github.com/for-GET/know-your-http-well/blob/master/status-codes.md) are used.
+
+# Group Authentication
 
 ## Authentication [/auth/local]
-
-All api endpoints requires user to pass `jwt-token`. In order to obtain it, user will have to log in first. 
+All api endpoints requires user to pass `Bearer <token>` in `authorization` header. In order to obtain it, user will have to log in first. 
 
 ### Log in [POST]
-
 In order to obtain `token` user will have to pass `email` and `password`. 
 
 + Request (application/json)
@@ -28,21 +36,21 @@ In order to obtain `token` user will have to pass `email` and `password`.
             "token": "someToken"
         }
 
+# Group Missions 
+Retrieves and accepts missions. 
 
-
-## Missions Collection [/missions/locations{?location,state}]
+## Missions Collection [/missions/locations{?location}]
 ### List 40 closest Missions [GET]
+Retrieves locations of the missions that are available to accept. 
 
 + Parameters
     + location (required, array, `40.714728,-73.998672`) ... Location where to look for missions
-    + state (required, string, `active`) ... State of the mission, possible `active`
-
+    
 + Request (application/json)
   
     + Headers
 
             authorization: Bearer <JWT-Token>
-
     
 + Response 200 (application/json)
 
@@ -52,6 +60,7 @@ In order to obtain `token` user will have to pass `email` and `password`.
               "title": "Nice and easy", 
               "company": "Tesco",
               "address": {
+                "id": "123acb21",
                 "coordinates": [40.714728, -73.998672],
                 "distance": 0.2
               }, 
@@ -63,6 +72,7 @@ In order to obtain `token` user will have to pass `email` and `password`.
               "title": "Nice and easy", 
               "company": "Tesco",
               "address": {
+                "id": "123acb22",
                 "coordinates": [40.714728, -74.998672],
                 "distance": 10.2
               }, 
@@ -71,11 +81,12 @@ In order to obtain `token` user will have to pass `email` and `password`.
             }
         ]
 
-## Mission Details [/missions/locations/{id}]
-A single Mission object with all its details
+## Mission Details [/missions/{missionId}/locations/{locationId}]
+Mission details with location and tasks
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Mission to perform action with.
+    + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
+    + locationId (required, string, `123cvad2`) ... String `id` of the location
 
 ### Retrieve a Mission [GET]
 + Response 200 (application/json)
@@ -91,66 +102,28 @@ A single Mission object with all its details
                   "title": "Nice and easy",
                   "company": "Tesco",
                   "address": {
+                    "id": "123acb21"m
                     "coordinates": [40.714728, -73.998672],
                     "distance": 0.2
                   },
-                  "status": "open",
+                  "state": "active",
                   "dueDate": "2015-01-22T15:20:38",
                   "price": 5,
                   "tasks": [
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "photo", "count": 1, "icon": "ion-help-circled"}
+                    {
+                        "type": "question", 
+                        "data": {},
+                        "id": "packaging",
+                        "label": "Do you like packaging?"
+                    }
                   ],
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
-            
-## Mission Tasks [/missions/{id}/tasks]
 
-Tasks related to the mission. 
-Mission can have multiple different type of tasks.
-* yes/no question
-* take and upload picture
-* select 
-* free text question
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Mission to perform action with.
-
-### Retrieve a Mission Tasks [GET]
-
-+ Response 200 (application/json)
-    + Body
-    
-            [
-                {
-                    "type": "yes-no",
-                    "id": "packaging",
-                    "label": "Do you like packaging?"
-                },
-                {
-                    "type": "photo",
-                    "id": "pic1",
-                    "label": "Take a photo of the product"
-                },
-                {
-                    "type": "text",
-                    "id": "text1",
-                    "label": "What products stands next to it?"
-                }
-                
-            ]
-
-
-            
-## Accept Mission [/missions/locations/{id}/accept]
-
+## Booking mission [/missions/locations/{id}/accept]
 Mission will be assign/declined for the user who is executing the action. 
 
 ### Accept a mission [PUT]
-
 * Only mission in `state='active'` can be accepted. 
 * `bookingDueTime` is calculated and set for the mission
 
@@ -181,7 +154,6 @@ Mission will be assign/declined for the user who is executing the action.
             }
             
 ### Decline a mission [DELETE]
-
 * Only mission in state='booked' can be declined.
 
 + Response 200 (application/json)
@@ -209,6 +181,3 @@ Mission will be assign/declined for the user who is executing the action.
                   ],
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
-
-
-
