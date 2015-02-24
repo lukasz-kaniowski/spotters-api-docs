@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://ukache-spotters-web.herokuapp.com/api
+HOST: https://ukache-spotters-web.herokuapp.com
 
 # Spotters API
 *Spotters API* is used by mobile applications.
@@ -39,7 +39,7 @@ In order to obtain `token` user will have to pass `email` and `password`.
 # Group Missions 
 Retrieves and accepts missions. 
 
-## Missions Collection [/missions/locations{?location}]
+## Missions Collection [/api/missions/locations{?location}]
 ### List 40 closest Missions [GET]
 Retrieves locations of the missions that are available to accept. 
 
@@ -81,33 +81,45 @@ Retrieves locations of the missions that are available to accept.
             }
         ]
 
-## Mission Details [/missions/{missionId}/locations/{locationId}]
+## Mission Details [/api/missions/{missionId}/locations/{locationId}]
 Mission details with location and tasks
 
 + Parameters
     + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
     + locationId (required, string, `123cvad2`) ... String `id` of the location
 
-### Retrieve a Mission [GET]
-+ Response 200 (application/json)
++ Model (application/json)
+  
+    This is the `application/json` mission resource representation.
 
-    + Header
+    Body contains:
 
-            X-My-Header: The Value
+    * `title` - mission title
+    * `company` - name of the company
+    * `address` - mission location
+    * `state` - state of the mission, possible values `active booked`
+    * `dueDate` - date when this mission will expire
+    * `bookingDueTime` - date when current booking will expire, only for booked missions
+    * `bookingPeriod` - time in minutes of how much time user will have to finish the mission after booking
+    * `price` - price user earns after successful mission
+    * `tasks` - task to fulfill
+    * `instructions` - html instructions of what will happen in that mission
 
     + Body
 
             {
-                  "id": 1,
+                  "id": "asdfcb",
                   "title": "Nice and easy",
                   "company": "Tesco",
                   "address": {
-                    "id": "123acb21"m
+                    "id": "123acb21",
                     "coordinates": [40.714728, -73.998672],
                     "distance": 0.2
                   },
                   "state": "active",
-                  "dueDate": "2015-01-22T15:20:38",
+                  "dueDate": "2015-06-22T15:20:38",
+                  "bookingDueTime": "2015-04-22T15:20:38",
+                  "bookingPeriod": "60",
                   "price": 5,
                   "tasks": [
                     {
@@ -120,64 +132,29 @@ Mission details with location and tasks
                   "instructions": "<p>Some <b>html</b> descipiton</p>"
             }
 
-## Booking mission [/missions/locations/{id}/accept]
+### Retrieve a Mission [GET]
++ Response 200 (application/json)
+
+   [Mission Details][]
+
+## Booking mission [/api/missions/{missionId}/locations/{locationId}/accept]
 Mission will be assign/declined for the user who is executing the action. 
 
-### Accept a mission [PUT]
++ Parameters
+    + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
+    + locationId (required, string, `123cvad2`) ... String `id` of the location
+
+### Book a mission [PUT]
 * Only mission in `state='active'` can be accepted. 
 * `bookingDueTime` is calculated and set for the mission
 
 + Response 200 (application/json)
 
-    + Body
-    
-            {
-                  "id": 1,
-                  "title": "Nice and easy",
-                  "company": "Tesco",
-                  "address": {
-                    "coordinates": [40.714728, -73.998672],
-                    "distance": 0.2
-                  },
-                  "dueDate": "2015-01-22T15:20:38",
-                  "bookingDueTime": "2015-01-10T15:20:38",
-                  "status": "booked",
-                  "price": 5,
-                  "tasks": [
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "photo", "count": 1, "icon": "ion-help-circled"}
-                  ],
-                  "instructions": "<p>Some <b>html</b> descipiton</p>"
-            }
+    [Mission Details][]
             
 ### Decline a mission [DELETE]
 * Only mission in state='booked' can be declined.
 
 + Response 200 (application/json)
 
-    + Body
-    
-            {
-                  "id": 1,
-                  "title": "Nice and easy",
-                  "company": "Tesco",
-                  "address": {
-                    "coordinates": [40.714728, -73.998672],
-                    "distance": 0.2
-                  },
-                  "dueDate": "2015-01-22T15:20:38",
-                  "bookingDueTime": "",
-                  "status": "open",
-                  "price": 5,
-                  "tasks": [
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "question", "count": 5, "icon": "ion-alert"},
-                    {"type": "photo", "count": 1, "icon": "ion-help-circled"}
-                  ],
-                  "instructions": "<p>Some <b>html</b> descipiton</p>"
-            }
+    [Mission Details][]   
