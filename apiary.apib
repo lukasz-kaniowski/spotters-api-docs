@@ -50,7 +50,7 @@ Retrieves locations of the missions that are available to accept.
   
     + Headers
 
-            authorization: Bearer <JWT-Token>
+            Authorization: Bearer <JWT-Token>
     
 + Response 200 (application/json)
 
@@ -82,7 +82,19 @@ Retrieves locations of the missions that are available to accept.
         ]
 
 ## Mission Details [/api/missions/{missionId}/locations/{locationId}]
-Mission details with location and tasks
+
+Mission contains:
+
+* `title` - mission title
+* `company` - name of the company
+* `address` - mission location
+* `state` - state of the mission, possible values `active booked`
+* `dueDate` - date when this mission will expire
+* `bookingDueTime` - date when current booking will expire, only for booked missions
+* `bookingPeriod` - time in minutes of how much time user will have to finish the mission after booking
+* `price` - price user earns after successful mission
+* `tasks` - tasks to fulfill
+* `instructions` - html instructions of what will happen in that mission
 
 + Parameters
     + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
@@ -91,19 +103,6 @@ Mission details with location and tasks
 + Model (application/json)
   
     This is the `application/json` mission resource representation.
-
-    Body contains:
-
-    * `title` - mission title
-    * `company` - name of the company
-    * `address` - mission location
-    * `state` - state of the mission, possible values `active booked`
-    * `dueDate` - date when this mission will expire
-    * `bookingDueTime` - date when current booking will expire, only for booked missions
-    * `bookingPeriod` - time in minutes of how much time user will have to finish the mission after booking
-    * `price` - price user earns after successful mission
-    * `tasks` - task to fulfill
-    * `instructions` - html instructions of what will happen in that mission
 
     + Body
 
@@ -133,6 +132,13 @@ Mission details with location and tasks
             }
 
 ### Retrieve a Mission [GET]
+
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
+
 + Response 200 (application/json)
 
    [Mission Details][]
@@ -148,12 +154,24 @@ Mission will be assign/declined for the user who is executing the action.
 * Only mission in `state='active'` can be accepted. 
 * `bookingDueTime` is calculated and set for the mission
 
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
+
 + Response 200 (application/json)
 
     [Mission Details][]
             
 ### Decline a mission [DELETE]
 * Only mission in state='booked' can be declined.
+
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
 
 + Response 200 (application/json)
 
