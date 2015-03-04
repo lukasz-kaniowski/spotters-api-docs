@@ -39,7 +39,7 @@ In order to obtain `token` user will have to pass `email` and `password`.
 # Group Missions 
 Retrieves and accepts missions. 
 
-## Missions Collection [/api/missions/locations{?location}]
+## Missions Collection [/api/missions/{?location}]
 ### List 40 closest Missions [GET]
 Retrieves locations of the missions that are available to accept. 
 
@@ -81,7 +81,7 @@ Retrieves locations of the missions that are available to accept.
             }
         ]
 
-## Mission Details [/api/missions/{missionId}/locations/{locationId}]
+## Mission Details [/api/missions/{missionId}]
 
 Mission contains:
 
@@ -98,7 +98,6 @@ Mission contains:
 
 + Parameters
     + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
-    + locationId (required, string, `123cvad2`) ... String `id` of the location
 
 + Model (application/json)
   
@@ -143,12 +142,11 @@ Mission contains:
 
    [Mission Details][]
 
-## Booking mission [/api/missions/{missionId}/locations/{locationId}/book]
+## Booking mission [/api/missions/{missionId}/book]
 Mission will be assign/declined for the user who is executing the action. 
 
 + Parameters
     + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
-    + locationId (required, string, `123cvad2`) ... String `id` of the location
 
 ### Book a mission [PUT]
 * Only mission in `state='active'` can be accepted. 
