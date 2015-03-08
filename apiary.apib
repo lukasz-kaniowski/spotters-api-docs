@@ -40,12 +40,48 @@ In order to obtain `token` user will have to pass `email` and `password`.
 Retrieves and accepts missions. 
 
 ## Missions Collection [/api/missions/{?location}]
+
++ Model (application/json)
+  
+    This is the `application/json` missions collection representation.
+
+    + Body
+
+            [
+                {
+                  "id": 1, 
+                  "title": "Nice and easy", 
+                  "company": "Tesco",
+                  "address": {
+                    "id": "123acb21",
+                    "coordinates": [40.714728, -73.998672],
+                    "distance": 0.2
+                  }, 
+                  "dueDate": "30-12-2014 22:10", 
+                  "price": 5
+                },
+                {
+                  "id": 2, 
+                  "title": "Nice and easy", 
+                  "company": "Tesco",
+                  "address": {
+                    "id": "123acb22",
+                    "coordinates": [40.714728, -74.998672],
+                    "distance": 10.2
+                  }, 
+                  "dueDate": "31-12-2014 12:10", 
+                  "price": 10
+                }
+            ]
+
+
 ### List 40 closest Missions [GET]
 Retrieves locations of the missions that are available to accept. 
 
 + Parameters
     + location (required, array, `40.714728,-73.998672`) ... Location where to look for missions
-    
+
+
 + Request (application/json)
   
     + Headers
@@ -54,32 +90,7 @@ Retrieves locations of the missions that are available to accept.
     
 + Response 200 (application/json)
 
-        [
-            {
-              "id": 1, 
-              "title": "Nice and easy", 
-              "company": "Tesco",
-              "address": {
-                "id": "123acb21",
-                "coordinates": [40.714728, -73.998672],
-                "distance": 0.2
-              }, 
-              "dueDate": "30-12-2014 22:10", 
-              "price": 5
-            },
-            {
-              "id": 2, 
-              "title": "Nice and easy", 
-              "company": "Tesco",
-              "address": {
-                "id": "123acb22",
-                "coordinates": [40.714728, -74.998672],
-                "distance": 10.2
-              }, 
-              "dueDate": "31-12-2014 12:10", 
-              "price": 10
-            }
-        ]
+    [Missions Collection][]
 
 ## Mission Details [/api/missions/{missionId}]
 
@@ -174,3 +185,20 @@ Mission will be assign/declined for the user who is executing the action.
 + Response 200 (application/json)
 
     [Mission Details][]   
+
+## User mission [/api/missions/me]
+
+List of missions that are assigned to the user. 
+
+### Get a list of user mission [GET]
+
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
+
++ Response 200 (application/json)
+
+    [Missions Collection][]
+
