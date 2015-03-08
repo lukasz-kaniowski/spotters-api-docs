@@ -39,7 +39,7 @@ In order to obtain `token` user will have to pass `email` and `password`.
 # Group Missions 
 Retrieves and accepts missions. 
 
-## Missions Collection [/api/missions/{?location}]
+## Missions Collection [/api/missions/{?location,state}]
 
 + Model (application/json)
   
@@ -80,6 +80,7 @@ Retrieves locations of the missions that are available to accept.
 
 + Parameters
     + location (required, array, `40.714728,-73.998672`) ... Location where to look for missions
+    + state (optional, string, `active`) ... Filters missions by state. 
 
 
 + Request (application/json)
