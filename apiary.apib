@@ -209,4 +209,38 @@ There are 3 possible `state` of the mission: `booked`, `review`, `closed`
 + Response 200 (application/json)
 
     [Missions Collection][]
+    
+## Mission tasks [/api/missions/{missionId}/tasks]
+
++ Parameters
+    + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
+
+### Sending answers [PATCH]
+
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
+            
+    + Body 
+    
+            [
+                    {
+                        "data": {
+                            "answer": "Some answer from the user"
+                        },
+                        "id": "packaging"
+                    },
+                    {
+                        "data": {
+                            "answer": "s3://url/to/picture"
+                        },
+                        "id": "picure1"
+                    }
+            ]
+
++ Response 200 (application/json)
+
+    [Mission Details][]    
 
