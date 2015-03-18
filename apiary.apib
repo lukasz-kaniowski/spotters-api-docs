@@ -243,4 +243,29 @@ There are 3 possible `state` of the mission: `booked`, `review`, `closed`
 + Response 200 (application/json)
 
     [Mission Details][]    
+    
+## Upload picture [/api/missions/{missionId}/tasks/{taskId}/upload]
+
++ Parameters
+    + missionId (required, string, `123cvad2`) ... String `id` of the Mission 
+    + taskId (required, string, `123cvad2`) ... String `id` of the Task in Mission 
+
+### Getting AWS Policy [GET]
+
++ Request (application/json)
+  
+    + Headers
+
+            Authorization: Bearer <JWT-Token>
+
++ Response 200 (application/json)
+        
+        {
+            "bucket":"the-eye",
+            "awsKey":"AKIAIJ5F42JF7HRCYG5Q",
+            "policy":"eyJleHBpcmF0aW9uIjoiMjAxNS0wMy0xOFQwODoxMDowNy42ODdaIiwiY29uZGl0aW9ucyI6W3siYnVja2V0IjoidGhlLWV5ZSJ9LHsia2V5IjoiMTMxMjMifSx7ImFjbCI6InB1YmxpYy1yZWFkIn0sWyJzdGFydHMtd2l0aCIsIiRDb250ZW50LVR5cGUiLCIiXSxbImNvbnRlbnQtbGVuZ3RoLXJhbmdlIiwwLDUyNDI4ODAwMF1dfQ==",
+            "signature":"WsHmVgXAGGOM35vx2EOfNltrqJU=",
+            "fileName":"13123",
+            "acl":"public-read"
+        }
 
